@@ -1,0 +1,23 @@
+html.revision_diff
+
+    table
+        tr
+            display block
+
+        p
+            color $color_grey_8
+            font-size 0.85em
+            line-height 1.8em
+            margin 0
+
+    del
+        color $color_red
+        background-color lighten(@color, 80%)
+
+        font-weight 600
+
+    ins
+        @extend html.revision_diff del
+        color shade($color_green, 35%)
+        background-color lighten($color_green, 75%)
+        text-decoration none

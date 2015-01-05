@@ -1,0 +1,70 @@
+{% load humanize %}
+{% load articles %}
+
+<article class="article-widget{% if article.is_editors_pick %} editors-pick{% endif %}">
+
+    <header>
+        {% if article.published_at %}
+        <div class="widget-stats">
+            <div class="views">
+                <span class="count">{{ article.views_count|intcomma }}</span> views
+            </div>
+
+            <div class="kudos">
+                <span class="count">{{ article.received_kudos_count|intcomma }}</span> kudos
+            </div>
+        </div>
+        {% endif %}
+        <h4>
+            <a href="{% if article.published_at %}{% url 'articles_article_detail' article.pk article.slug %}{% else %}{{ article.get_edit_url }}{% endif %}">{{ article.title }}</a>
+        </h4>
+
+    </header>
+
+    <div class="article-summary">
+        <div class="widget-punchline">{{ article.punchline }}</div>
+    </div>
+
+    <footer>
+
+        {% if article.published_at %}
+        <div class="info">
+            <div class="widget-contributors">
+                By {% group_editors article.original_author article.other_contributors 4 %}
+            </div>
+
+            {% if article.is_wip %}
+            <div class="widget-badge-wiki">
+                wiki
+            </div>
+            <div class="widget-badge-wip">
+                <i class="fa fa-warning"></i> stub
+            </div>
+            {% elif article.is_wiki %}
+            <div class="widget-badge-wiki">
+                wiki
+            </div>
+            {% endif %}
+
+            {% if article.tags.all %}
+            <div class="widget-tags">
+                <ul class="menu-list">
+                    {% for tag in article.tags.all %}
+                    <li>
+                        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+        {% else %}
+        <div class="no-phone">
+            <a href="{{ article.get_edit_url }}" class="inline-button btn-xsmall">Edit draft</a>
+        </div>
+        {% endif %}
+
+    </footer>
+
+</article>

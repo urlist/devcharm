@@ -1,0 +1,47 @@
+{% load staticfiles %}
+{% load compressed %}
+{% load articles %}
+
+<!doctype html>
+<html lang="en" class="{% block css_namespace %}{% endblock css_namespace %}">
+<head>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}Devcharm{% endblock %}</title>
+
+    <meta name="og:image" content="{% random_image %}">
+    {% block additional_meta %}{% endblock %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block additional_link %}{% endblock %}
+    <link href="{% static 'css/normalize.css' %}" rel="stylesheet">
+    {% compressed_css "waffle" %}
+    {% compressed_css "main" %}
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="{% static 'js/ads.js' %}"></script>
+
+    {% block tracker_analytics %}
+    {% include "partials/ga.html" %}
+    {% endblock %}
+
+    <script src="{% static 'jquery/jquery-2.0.3.min.js' %}"></script>
+    <script src="{% static 'underscore/underscore-min.js' %}"></script>
+    <script src="{% static 'jquery/jquery.cookie.js' %}"></script>
+    <script src="{% static 'js/global.js' %}"></script>
+
+    {% block additional_js %}{% endblock %}
+
+</head>
+
+<body>
+{% block tracker_tagmanager %}
+{% include "partials/gtm.html" %}
+{% endblock %}
+
+{% block body %}
+{% endblock body %}
+
+</body>
+
+</html>

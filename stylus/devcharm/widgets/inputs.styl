@@ -1,0 +1,62 @@
+// Mixin for placeholder styles
+placeholder($color_pl=$color_grey_8, $weight_pl= 400, $size_pl= 1em)
+    &::-moz-placeholder
+        color $color_pl
+        font-style italic
+        font-family $type_serif
+        font-size $size_pl
+        font-weight $weight_pl
+        opacity 1 !important
+    &:-ms-input-placeholder
+        color $color_pl
+        font-style italic
+        font-family $type_serif
+        font-size $size_pl
+        font-weight $weight_pl
+    &::-webkit-input-placeholder
+        color $color_pl
+        font-style italic
+        font-family $type_serif
+        font-size $size_pl
+        font-weight $weight_pl
+
+// Mixin for input styles
+input-style($color_border=$color_grey_70, $color=$color_grey_25, $color_bg=$color_grey_50, $color_border_focus=$color_grey_50)
+    box-sizing border-box
+    width 100%
+    margin-bottom 0.85em
+    padding 18px 16px
+    border 1px solid $color_border
+    border-radius 3px
+
+    background-color $color_bg
+    box-shadow 2px 2px 3px -2px rgba($color_grey_8, 0.2) inset
+    color $color
+
+    font-family $type_serif
+
+    transition $transition_quick
+
+    placeholder()
+
+    &:focus
+        outline none
+        background-color lighten($color_bg, 10%)
+        border-color $color_border_focus
+
+input
+    input-style()
+
+.inp-small
+    @extend input
+    padding 12px 22px
+
+.inp-xsmall
+    @extend input
+    padding 6px 12px
+
+.inp-dark
+    @extend input
+    input-style($color_grey_35, $color_grey_90, lighten($color_black, 14%), $color_grey_50)
+
+    placeholder ($color_grey_95)

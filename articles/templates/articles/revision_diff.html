@@ -1,0 +1,44 @@
+{% extends '_main.html' %}
+{% block css_namespace %}revision_diff{% endblock %}
+
+{% comment %}
+OK here we go.
+
+Every line in the article is a row in the diff table. A change can be
+something added or something removed.
+
+The two tags to style a change are:
+ - del
+ - ins
+
+{% endcomment %}
+
+{% block content %}
+        <div class="row revision-header">
+            <div class="unit">
+                <a href="{% url 'articles_article_revision_list' article.pk %}" class="inline-button btn-xsmall">
+                <i class="fa fa-arrow-left"></i> back to revisions</a>
+            </div>
+            <div class="unit">
+                <h1>{{ article.title }}</h1>
+                <h2>{{ article.punchline }}</h2>
+            </div>
+        </div>
+
+<div class="row">
+    <table class="unit nested diff">
+        {% for status, old, new in diff %}
+        {% if new or old %}
+        <tr class="row">
+            <td class="unit u-50 diff--old">
+                <p>{{ old|default:""|safe }}</p>
+            </td>
+            <td class="unit u-50 diff--new">
+                <p>{{ new|default:""|safe }}</p>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

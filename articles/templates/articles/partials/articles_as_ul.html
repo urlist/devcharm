@@ -1,0 +1,17 @@
+{% load articles %}
+<ul class="articles {{ ul_classes }}">
+    {% for article in section_articles %}
+        <li class="article {{ li_classes|default:ul_classes }}{% if article.is_editors_pick %} editors-pick{% endif %}">
+            <span class="title">{{ article.title }}</span>
+            {% if always_edit or article|is_editable_by:request.user %}
+                <a class="edit-this" href="{% url "articles_article_edit" article.pk %}">Edit this</a>
+            {% endif %}
+            <form action="{% url "articles_give_kudos_to_article" article.pk %}" method="post"
+                  id="kudos-form-{{ article.pk }}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}" />
+                <button class="give-kudos">Kudos!</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>

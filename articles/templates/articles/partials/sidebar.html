@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<div class="sidebar">
+    <div class="row">
+        <div class="unit">
+            <h4>More in <a href="{{ tag_one.get_absolute_url }}">{{ tag_one.title }}</a></h4>
+        </div>
+        <ul class="unit reset-list">
+            {% for article in list_one|slice:":6" %}
+            <li>{% include "articles/partials/article_widget_mini.html" %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if not user.is_authenticated %}
+    <div class="row">
+        <div class="unit">
+            <a href="/login/github" data-ga="registration,subscribe,article-banner,10"><img src="{% static 'images/devcharm_job_board.jpg' %}" alt="Devcharm Job Board"></a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="unit">
+            <h4>More in <a href="{{ tag_two.get_absolute_url }}">{{ tag_two.title }}</a></h4>
+        </div>
+        <ul class="unit reset-list">
+            {% for article in list_two|slice:":6" %}
+            <li>{% include "articles/partials/article_widget_mini.html" %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

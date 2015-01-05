@@ -1,0 +1,169 @@
+{% extends '_main.html' %}
+{% block css_namespace %}landing{% endblock %}
+
+{% block body %}
+
+<header class="main-header only-desktop">
+
+    <div class="row">
+
+        <ul class="unit u-75 menu-list">
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'docs_manifesto' %}">Manifesto</a></li>
+            <li><label for="slide-tags">Tags</label></li>
+        </ul>
+
+        <ul class="unit u-25 menu-list login">
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profiles_profile' %}">{{ user.username }} profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login || Signup</a></li>
+            {% endif %}
+
+            <li><img src="" alt=""></li>
+        </ul>
+
+    </div>
+
+</header>
+
+<input type="checkbox" name="" id="slide-tags">
+<div class="tags-menu">
+    <div class="row">
+        <div class="unit">
+            {% include "tags/tag_list.html" %}
+        </div>
+    </div>
+</div>
+
+<div class="banner-top">
+    <div class="row">
+        <div class="unit">
+            <h1>Devcharm</h1>
+            <p>Every day we spend countless hours on our editor, solving problems for us and for the millions of people who are using our software. And every day we crawl the Web for ideas, answers, reading documentation and source code.</p>
+            <a href="{% url 'docs_manifesto' %}" class="inline-button btn-green">read the manifesto</a>
+            <a href="{% url "articles_article_create" %}" class="inline-button">Write a post</a>
+        </div>
+    </div>
+</div>
+
+<div class="menu-landing">
+    <div class="row">
+        <div class="unit">
+            <a href="#wiki" class="inline-button btn-blue btn-xsmall">Must Read</a>
+            <a href="#wiki" class="inline-button btn-blue btn-xsmall">Wiki Lists</a>
+            <a href="#hot" class="inline-button btn-outline btn-xsmall">Hot Lists</a>
+            <a href="#trending" class="inline-button btn-outline btn-xsmall">Trending Tags</a>
+        </div>
+    </div>
+</div>
+
+<div class="banner-editorial">
+    <div class="row">
+        <div class="unit">
+          <h2>Must Read</h2>
+      </div>
+      <div class="unit nested">
+        <div class="row split3">
+            <ul class="reset-list featured">
+                {% for article in editors_picks|slice:":6" %}
+                <li class="unit">
+                    <div class="editorial">{% include "articles/partials/article_widget.html" %}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="secondary-header">
+    <div class="row center">
+        <div class="unit">
+            <h2 id="wiki">Wiki Lists</h2>
+        </div>
+    </div>
+</div>
+
+<div class="wiki-lists">
+    <div class="row">
+        <div class="unit nested">
+            <div class="row split3">
+                <ul>
+                    {% for article in wip_articles|slice:":9" %}
+                    <li class="unit">
+                        {% include "articles/partials/article_widget.html" %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% comment %}
+        <div class="unit">
+            <a href="" class="btn-small">load more</a>
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+
+<div class="secondary-header">
+    <div class="row center">
+        <div class="unit">
+            <h2 id="hot">Hot Lists</h2>
+        </div>
+    </div>
+</div>
+
+<div class="hot-lists">
+    <div class="row">
+        <div class="unit nested">
+            <div class="row split3">
+                <ul class="article-list">
+                    {% for article in article_list|slice:":9" %}
+                    <li class="unit article">
+                        {% include "articles/partials/article_widget.html" %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% comment %}
+        <div class="unit">
+            <a href="" class="btn-small">load more</a>
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+
+<div class="secondary-header">
+    <div class="row center">
+        <div class="unit">
+            <h2 id="trending">Trending Lists</h2>
+        </div>
+    </div>
+</div>
+
+<div class="trending-lists">
+    <div class="row">
+        <div class="unit nested">
+            <div class="row split3">
+                <ul>
+                </ul>
+            </div>
+        </div>
+        {% comment %}
+        <div class="unit">
+            <a href="" class="btn-small">load more</a>
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+
+{% endblock body %}
+
+
+{% block additional_link %}
+    <link rel="alternate" href="{% url "articles_feed_global" %}" />
+{% endblock %}

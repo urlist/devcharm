@@ -1,0 +1,122 @@
+{% extends '_main.html' %}
+{% load articles %}
+
+{% block title %}Articles in "{{ main_tag.title }}" /* Devcharm */{% endblock title %}
+
+{% block css_namespace %}tag_page{% endblock %}
+
+{% comment %}
+About the tag instance, you can use:
+  main_tag.title
+
+no description right now, but we can add it easily
+
+
+About related tags, we have:
+  related_tag_one, the first tag related with the main_tag
+  related_articles_one, containing articles related to the main tag
+
+  related_tag_two, the second tag related with the main_tag
+  related_articles_two, containing articles related to the main tag
+
+
+About the lists of articles, we have:
+  article_list, the main list containing the articles
+  related_tags, a list of related tags we can use.
+
+{% endcomment %}
+{% block content %}
+
+    <div class="banner-top">
+        <div class="row">
+
+            <div class="unit u-75 tag-intro">
+                <h1>{{ main_tag.title }}</h1>
+                <p>{{ main_tag.description }}</p>
+            </div>
+
+            <div class="unit u-25 tag-cta no-phone">
+                <div class="cta">
+                    <i class="fa fa-mortar-board"></i>
+                    <div>Missing something? <br>Help improving this voice!</div>
+                </div>
+                <a href="{% url 'articles_article_create' %}" data-ga="engagement,write-new,oners,20" class="button btn-green">write a stub</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row main-content">
+        <div class="unit u-75 nested">
+            <div class="row">
+                <div class="unit">
+                    <ul class="filter-tags menu-list">
+                        <li class="{% active 'sort' 'hot' default=True %}">
+                            <a href="?sort=hot" class="btn-xsmall">Hot</a>
+                        </li>
+                        <li class="{% active 'sort' 'new' %}">
+                            <a href="?sort=new" class="btn-xsmall">New</a>
+                        </li>
+                        <li class="{% active 'sort' 'views' %}">
+                            <a href="?sort=views" class="btn-xsmall">Views</a>
+                        </li>
+                        <li class="{% active 'sort' 'kudos' %}">
+                            <a href="?sort=kudos" class="btn-xsmall">Kudos</a>
+                        </li>
+                        <li class="{% active 'sort' 'last_edited' %}">
+                            <a href="?sort=last_edited" class="btn-xsmall">Updated</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row split3 one-column">
+                <ul class="reset-list article-list">
+                    {% for article in article_list %}
+                        <li class="unit">
+                            {% include "articles/partials/article_widget.html" %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% comment %}
+            <div class="row">
+                <div class="unit">
+                    <a href="" class="btn-small">load more</a>
+                </div>
+            </div>
+            {% endcomment %}
+        </div>
+
+        <div class="unit u-25">
+            {% include "articles/partials/sidebar.html" with tag_one=related_tag_one list_one=related_articles_one tag_two=related_tag_two list_two=related_articles_two %}
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block additional_link %}
+    <link rel="alternate" href="{% url "articles_feed_by_tag" main_tag %}" />
+{% endblock %}
+
+{% comment %}
+{% extends "articles/home.html" %}
+{% load articles %}
+{% block css_namespace %}tag{% endblock %}
+
+
+{% block trending_tags %}
+<ul class="related-tags">
+{% for related_tag in related_tags %}
+    <li>
+        <a href="{% url "articles_list_by_tag" related_tag.title %}" class="title">{{ related_tag.title }}</a>
+        <a href="?{% drilldown_link related_tag.title %}" class="drilldown"
+           id="drilldown-{{ related_tag.title }}">&plus;</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block interaction_buttons %}
+    <a href="{% url "articles_article_create" main_tag %}">Start new list</a>
+{% endblock %}
+{% endcomment %}

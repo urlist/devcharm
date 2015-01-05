@@ -1,0 +1,71 @@
+{% extends '_main.html' %}
+{% block css_namespace %}revision_list{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="unit nested revision-container">
+        <div class="row revision-header">
+            <div class="unit">
+                <a href="{% url 'articles_article_detail' current_version.pk current_version.slug %}" class="inline-button btn-xsmall">
+                <i class="fa fa-arrow-left"></i> back to list</a>
+            </div>
+            <div class="unit">
+                <h1>{{ current_version.title }}</h1>
+                <h2>{{ current_version.punchline }}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="unit nested revision-table">
+                <thead class="no-phone">
+                    <tr class="row table-header">
+                        <th class="unit u-33">Date</th>
+                        <th class="unit u-33">Author</th>
+                        <th class="unit u-33">Actions</th>
+                    </tr>
+                </thead>
+                <thead class="only-phone">
+                    <th>List of revisions</th>
+                </thead>
+                <tbody>
+
+                    {% for revision in revision_list %}
+                    <tr class="row">
+                        <td class="unit u-33">
+                            <span class="revision-date">
+                                {{ revision.created_at|date:"j M Y" }}
+                            </span>
+                            <span class="revision-time">
+                                {{ revision.created_at|date:"h:m" }}
+                            </span>
+                        </td>
+                        <td class="unit u-33">
+                            <span class="revision-author">
+                                <a href="{{ revision.author.author_profile.get_absolute_url }}">{{ revision.author.username }}</a>
+                            </span>
+                        </td>
+                        <td class="unit u-33 column-actions">
+                            <a class="revision-link inline-button btn-xsmall btn-blue" href="{% url "articles_article_revision_detail" pk=revision.article.pk revision_id=revision.pk %}">
+                                <i class="fa fa-clock-o"></i> view revision
+                            </a>
+
+                            {% if not forloop.first %} {# The first item is the current version #}
+                            <a class="diff-link inline-button btn-xsmall btn-green" href="{% url "articles_article_revision_diff" pk=revision.article.pk revision_id=revision.pk %}">
+                                <i class="fa fa-file-code-o"></i> view difference
+                            </a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_link %}
+<link rel="alternate" href="{% url "articles_article_revision_feed" pk=current_version.pk slug=current_version.slug %}" />
+{% endblock %}

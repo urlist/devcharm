@@ -1,0 +1,162 @@
+{% extends '_main.html' %}
+{% block css_namespace %}landing{% endblock %}
+
+{% block content %}
+
+<div class="banner-top">
+    <div class="row">
+        <div class="unit">
+            <h1>Devcharm</h1>
+            <p>
+                Devcharm is the first <strong>collaborative library about programming and development</strong>, collecting lists of resources reviewed by developers. Articles are organized by tags and built collaboratively, so anyone can improve the work of others, exactly like we do with programming. <strong>Devcharm is open to everyone</strong> to participate, but first <a href="{% url 'docs_manifesto' %}">read our manifesto</a>. We know that the Web has every information we need, but what's really worth reading?
+            </p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'articles_article_create' %}" data-ga="engagement,write-new,oners,20" class="inline-button btn-green">Write a post</a>
+            {% else %}
+            <a href="/login/github" data-ga="registration,subscribe,homepage-button,10" class="inline-button btn-green"><i class="fa fa-github"></i> subscribe to newsletter</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="menu-landing">
+    <div class="row">
+        <div class="unit">
+            <a href="#must-read" class="inline-button btn-blue btn-xsmall">Must Read</a>
+            <a href="#all-tags" class="inline-button btn-outline btn-xsmall">All Tags</a>
+            <a href="#wiki" class="inline-button btn-outline btn-xsmall">Wiki Lists</a>
+            <a href="#hot" class="inline-button btn-outline btn-xsmall">Hot Lists</a>
+            <a href="#recent" class="inline-button btn-outline btn-xsmall">Recent Lists</a>
+        </div>
+    </div>
+</div>
+
+<div class="banner-editorial">
+    <div class="row">
+        <div class="unit">
+            <h2 id="must-read">Must Read</h2>
+        </div>
+        <div class="unit nested">
+            <div class="row split3 one-column">
+                <ul class="reset-list featured">
+                {% for article in editors_picks|slice:":6" %}
+                    <li class="unit">
+                        <div class="editorial">
+                            {% include "articles/partials/article_widget.html" %}
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="banner-tags">
+    <div class="row">
+        <div class="unit">
+            <h3 id="all-tags">Explore by Tag</h3>
+            <ul class="menu-list">
+                {% for tag in trending_tags %}
+                <li>
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="secondary-header">
+    <div class="row center">
+        <div class="unit">
+            <h2 id="wiki">Wiki Lists</h2>
+        </div>
+    </div>
+</div>
+
+<div class="wiki-lists">
+    <div class="row">
+        <div class="unit nested">
+            <div class="row split3 one-column">
+                <ul class="reset-list">
+                    {% for article in wip_articles|slice:":9" %}
+                    <li class="unit">
+                        {% include "articles/partials/article_widget.html" %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% comment %}
+        <div class="unit">
+            <a href="" class="btn-small">load more</a>
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+
+<div class="secondary-header">
+    <div class="row center">
+        <div class="unit">
+            <h2 id="hot">Hot Lists</h2>
+        </div>
+    </div>
+</div>
+
+<div class="hot-lists">
+    <div class="row">
+        <div class="unit nested">
+            <div class="row split3 one-column">
+                <ul class="article-list reset-list">
+                    {% for article in article_list|slice:":9" %}
+                    <li class="unit article">
+                        {% include "articles/partials/article_widget.html" %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% comment %}
+        <div class="unit">
+            <a href="" class="btn-small">load more</a>
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+
+<div class="secondary-header">
+    <div class="row center">
+        <div class="unit">
+            <h2 id="recent">Recent</h2>
+        </div>
+    </div>
+</div>
+
+<div class="trending-lists">
+    <div class="row">
+        <div class="unit nested">
+            <div class="row split5 one-column">
+                <ul class="reset-list">
+                    {% for article in new_articles|slice:":20" %}
+                    <li class="unit article">
+                        {% include "articles/partials/article_widget_mini.html" with show_punchline=True %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% comment %}
+        <div class="unit">
+            <a href="" class="btn-small">load more</a>
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block additional_link %}
+    <link rel="alternate" href="{% url "articles_feed_global" %}" />
+{% endblock %}

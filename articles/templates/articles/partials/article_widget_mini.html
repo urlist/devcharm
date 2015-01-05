@@ -1,0 +1,28 @@
+{% load articles %}
+
+<article class="article-widget-mini">
+
+    <h5>
+        <a href="{% url 'articles_article_detail' pk=article.pk slug=article.slug %}">{{ article.title }}</a>
+    </h5>
+    {% if show_punchline %}
+    <p class="punchline">{{ article.punchline }}</p>
+    {% endif %}
+    <div class="info">
+        <div class="author">
+            By {% group_editors article.original_author article.other_contributors 3 %}
+        </div>
+        {% if article.tags.all %}
+        <div class="tags">Filed under
+            <ul class="menu-list">
+                {% for tag in article.tags.all %}
+                <li>
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+</article>

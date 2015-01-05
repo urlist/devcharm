@@ -1,0 +1,203 @@
+{% extends '_main.html' %}
+{% load humanize %}
+
+{% comment%}
+What you can use here
+=====================
+
+Data about the author:
+  author_profile.display_name
+  author_profile.bio
+  author_profile.website
+  author_profile.score
+  author_profile.username
+  author_profile.github_profile_url
+  author_profile.articles_published_count
+  author_profile.edits_count
+  author_profile.kudos_given_count
+
+
+You have a list of "article"s suggested WIPs you can iterate on, called
+  suggested_wip_articles
+
+
+You have a list of recent kudos "article"s called
+  recent_kudos
+
+
+You have a list of recent "article"s created by the user, called
+  recent_articles_published
+
+
+You have a list of recent edited "article"s, called
+  recent_articles_edited
+
+
+If the user is viewing their own profile, then you have a list of user's draft "article"s, called
+  articles_drafts
+
+
+{% endcomment %}
+
+{% block css_namespace %}profile{% endblock %}
+
+{% block content %}
+
+    <div class="banner-top">
+        {% if not is_public_profile %}
+        <input id="toggle-edit-form" type="checkbox" autocomplete="off" />
+        {% endif %}
+
+        <div class="row center profile-data">
+            <div class="unit">
+                <h1>{{ author_profile.display_name }}</h1>
+                <div class="devcharm-score">
+                    Devcharm score <span class="value">{{ author_profile.score|intcomma }}</span>
+                </div>
+                {% if not is_public_profile %}
+                <label for="toggle-edit-form" class="edit-profile-btn">Edit profile</label>
+                {% endif %}
+                <div class="profile-bio">{{ author_profile.bio_html|safe }}</div>
+            </div>
+        </div>
+
+        <ul class="row center profile-stats menu-list">
+            <li class="unit u-16">
+                <div class="count">{{ author_profile.articles_published_count }}</div>
+                <div class="label">posts</div>
+            </li>
+            <li class="unit u-16">
+                <div class="count">{{ author_profile.edits_count }}</div>
+                <div class="label">contributions</div>
+            </li>
+            <li class="unit u-16">
+                <div class="count">{{ author_profile.kudos_given_count }}</div>
+                <div class="label">kudos given</div>
+            </li>
+        </ul>
+
+        {% if not is_public_profile %}
+        <div class="row center profile-edit">
+            <form action="{% url "profiles_edit_own_profile" %}" method="post" class="unit u-50">
+                {% csrf_token %}
+
+                <input type="text" name="{{ form.display_name.name }}" value="{{ form.display_name.value }}" placeholder="Your display name" class="inp-small inp-dark">
+                <textarea name="{{ form.bio.name }}" placeholder="Just a short bio" id="" class="inp-small inp-dark">{{ form.bio.value }}</textarea>
+
+                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+                <div class="edit-buttons">
+                    <label for="toggle-edit-form" class="inline-button btn-small">Cancel</label>
+                    <button type="submit" class="inline-button btn-small btn-green">Save changes</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if not is_public_profile %}
+    <div class="row profile-section">
+        <div class="unit section-title">
+            <h3>Drafts <span>{{ fill_me }}</span></h3>
+        </div>
+        <div class="unit write-post no-phone">
+            <a href="{% url 'articles_article_create' %}" class="button btn-write-post" data-ga="engagement,write-new,oners,20"><i class="fa fa-file-text-o"></i> write a post</a>
+        </div>
+        <div class="unit nested drafts">
+            <ul class="row split3 one-column menu-list">
+                {% for article in articles_drafts %}
+                <li class="unit">
+                    {% include "articles/partials/article_widget.html" %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row profile-section">
+        <div class="unit section-title">
+            <h3>Posts <span>{{ author_profile.articles_published_count }}</span></h3>
+        </div>
+        <div class="unit nested">
+            <ul class="row split3 one-column menu-list">
+                {% for article in recent_articles_published|slice:":24" %}
+                <li class="unit">
+                    {% include "articles/partials/article_widget.html" %}
+                </li>
+                {% empty %}
+                <li class="unit empty-category">
+                    <div><i class="fa fa-eye"></i></div>
+                    <div>Nothing to see here.</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row profile-section">
+        <div class="unit section-title">
+            <h3>Contributions <span>{{ author_profile.edits_count }}</span></h3>
+        </div>
+        <div class="unit nested">
+            <ul class="row split3 one-column menu-list">
+                {% for article in recent_articles_edited|slice:":12" %}
+                <li class="unit">
+                    {% include "articles/partials/article_widget.html" %}
+                </li>
+                {% empty %}
+                <li class="unit empty-category">
+                    <div><i class="fa fa-eye"></i></div>
+                    <div>Nothing to see here.</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row profile-section">
+        <div class="unit section-title">
+            <h3>Kudos given <span>{{ author_profile.kudos_given_count }}</span></h3>
+        </div>
+        <div class="unit nested">
+            <ul class="row split3 menu-list one-column recent-kudos">
+                {% for article in recent_kudos|slice:":6" %}
+                <li class="unit">
+                    {% include "articles/partials/article_widget.html" %}
+                </li>
+                {% empty %}
+                <li class="unit empty-category">
+                    <div><i class="fa fa-eye"></i></div>
+                    <div>Nothing to see here.</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% comment %}
+<div>
+    <ul class="score-history">
+        {% for transaction in score_history %}
+            <li class="score-details">
+                <span class="description">{{ transaction.operation }}</span>
+                <span class="points">{{ transaction.change }}</span>
+                <span class="timestamp">{{ transaction.when|date:"d b Y, H:i:s" }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <div>
+
+<div>
+    <ul class="score-history">
+        {% for transaction in score_history %}
+            <li class="score-details">
+                <span class="description">{{ transaction.operation }}</span>
+                <span class="points">{{ transaction.change }}</span>
+                <span class="timestamp">{{ transaction.when|date:"d b Y, H:i:s" }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <div>
+{% endcomment %}

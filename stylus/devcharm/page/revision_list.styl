@@ -1,0 +1,126 @@
+html.revision_list
+
+    .revision-container
+        @media screen and (max-width: 800px)
+            width 100% !important
+            padding 0 1em
+
+    thead
+    tbody
+    tr
+        display block
+
+    .revision-header
+        .inline-button
+            margin-top 1.4em
+
+            .fa
+                &:after
+                    content '\2002'
+
+        h1
+            margin 0.3em 0 0.3em 0
+
+            font-family $type_serif
+            font-size 2.5em
+
+        h2
+            margin 0 0 2em 0
+
+            font-size 1.5em
+            font-weight 300
+
+    .revision-table
+        @media screen and (max-width: 640px)
+            outline 1px solid $color_grey_90
+
+        thead
+            border-top 1px solid $color_grey_80
+            border-bottom 1px solid $color_grey_80
+            background-color $color_grey_95
+
+            @media screen and (max-width: 640px)
+                border-top none
+                border-bottom 1px solid $color_grey_90
+
+            th
+                font-weight 700
+                text-align left
+
+                @media screen and (max-width: 800px)
+                    padding 0.5em 0 0.5em 0.4em
+
+            tr
+            / tbody tr
+                transition $transition_quick
+
+                @media screen and (max-width: 640px)
+                    border-bottom 4px solid $color_grey_90
+
+                    &:last-of-type
+                        border-bottom none
+
+        tbody
+            tr
+                @media screen and (max-width: 640px)
+                    padding-top 10px
+
+                &:nth-child(even)
+                    background-color $color_grey_95
+
+                    @media screen and (max-width: 640px)
+                        background-color transparent
+
+            td
+                vertical-align middle
+
+                @media screen and (max-width: 640px)
+                    padding 0 0.5em
+
+                .revision-date
+                .revision-time
+                .revision-author
+                    font-weight 600
+                    font-size 0.85em
+
+                    @media screen and (max-width: 640px)
+                        font-size 1em
+
+                .revision-date
+                    @media screen and (max-width: 800px)
+                        margin-top 1em
+
+                        &:before
+                            content 'Date:\2002'
+                            color $color_grey_50
+
+                .revision-time
+                    color $color_grey_50
+
+                    &:before
+                        content '\2002'
+
+                        @media screen and (max-width: 640px)
+                            content ''
+
+                .revision-author
+                    color $color_grey_50
+
+                    a:hover
+                        border-bottom 1px solid $color_blue
+
+                    @media screen and (max-width: 640px)
+                        &:before
+                            content 'Author:\2002'
+
+            .inline-button
+                @media screen and (max-width: 800px)
+                    width 100% !important
+                    margin 0 0 0.65em 0
+
+                    &:last-of-type
+                        margin 0
+
+            .column-actions
+                @media screen and (max-width: 640px)
+                    margin 0.85em 0

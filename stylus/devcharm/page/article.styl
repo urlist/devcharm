@@ -1,0 +1,346 @@
+html.article_details
+    .edit-article-button
+        edit-article-style()
+        display inline
+        margin-left 0.85em
+
+    .article-suggestions .suggestions-title
+        @media screen and (max-width: 800px)
+            padding 0 1em
+
+    .u-25
+        @media screen and (max-width: 800px)
+            padding 0 1em 0 0
+
+    .article-suggestions .unit.nested
+        @media screen and (max-width: 640px)
+            padding 0 1em
+
+    .article-wrapper
+        padding-right 6.5em
+
+        @media screen and (max-width: 800px)
+            padding 0 1em
+
+        code
+            font-size 0.9em
+
+        header
+            background-color transparent
+
+            .title
+                margin 0.65em 0 0 0
+
+                font-family $type_serif
+                font-size 4.5em
+                font-weight 700
+                line-height 1.1em
+
+                @media screen and (max-width: 800px)
+                    margin 0.3em 0 0 0
+                    font-size 3em
+
+                @media screen and (max-width: 640px)
+                    font-size 2em
+                    line-height 1.3em
+
+            .punchline
+                margin 1em 0 0 0
+                padding-right 3em
+
+                color $color_grey_8
+
+                font-size 1.9em
+                font-weight 300
+                line-height 1.4em
+
+                @media screen and (max-width: 800px)
+                    font-size 1.4em
+
+                @media screen and (max-width: 640px)
+                    margin 0.85em 0 0 0
+                    padding-right 0
+
+                    font-size 1.2em
+
+
+            .article-details
+                font-weight 600
+                margin 8em 0 1.5em 0
+                padding-bottom 0.5em
+                border-bottom 1px solid $color_grey_90
+
+                color $color_grey_50
+                font-size 0.85em
+                line-height 1.8em
+
+                @media screen and (max-width: 800px)
+                    margin 2em 0 0 0
+                    padding 0.75em 0
+                    border-top 1px solid $color_grey_90
+
+                a
+                    border-bottom none
+                    color $color_blue_light
+
+                    &:hover
+                        color $color_blue
+
+                .last-update
+                    color $color_black
+
+                .header-tags
+                    display inline
+
+                    a
+                        tags-style()
+
+                .wiki
+                .wip
+                    color $color_grey_50
+
+                    span
+                        margin-right 0.3em
+                        padding 0.2em 0.4em
+                        border-radius 2px
+
+                        color shade($color_wiki, 12%)
+                        background-color lighten($color_wiki, 80%)
+
+                        font-size 0.85em
+                        text-transform uppercase
+
+                    a
+                        color $color_wiki
+                        border-bottom 1px solid @color
+
+                        font-size 0.85em
+                        text-transform uppercase
+
+                        &:hover
+                            color darken($color_wiki, 15%)
+                            border-bottom 1px solid @color
+
+                .wip
+                    .fa
+                        padding 0.4em 0.6em
+                        border-radius 2px
+
+                        color $color_grey_8
+                        background-color $color_grey_90
+
+                        font-size 0.85em
+
+                .draft
+                    margin 0.85em 0 0.4em 0
+                    padding 0.85em 0
+
+                    border 1px solid $color_grey_90
+                    border-radius 2px
+
+                    color $color_grey_50
+                    background-color $color_grey_95
+
+                    text-align center
+
+        .article-description
+        .article-content
+            line-height 1.6em
+
+        .article-description
+            margin 0 0 3em 0
+
+            @media screen and (max-width: 800px)
+                margin 0 0 2em 0
+
+        .btn-edit-wiki
+            display inline-block
+            vertical-align top
+            margin-left 1em
+
+            @media screen and (max-width: 640px)
+                margin-left 0
+
+        .article-content
+
+            h2
+                display inline-block
+                margin 0 0 0.4em 0
+
+                font-family $type_serif
+                font-size 1.7em
+                font-weight 400
+                line-height 1.3em
+
+                @media screen and (max-width: 800px)
+                    font-size 1.4em
+
+            ul
+                margin 1.5em 0 3.2em 1.2em
+                padding 0
+                list-style-type disc
+
+                @media screen and (max-width: 640px)
+                    margin 1em 0 2.1em 0.85em
+
+                li
+                    padding-bottom 0.6em
+
+                    a
+                        font-weight 600
+                        border-bottom 1px solid $color_blue_light
+
+                        transition $transition_quick
+
+                        &:hover
+                            color $color_blue
+                            border-bottom 1px solid @color
+
+                        &:visited
+                            color $color_visited
+                            border-bottom 1px solid @color
+
+                    p
+                        margin 0
+
+        .article-actions
+            margin-bottom 3em
+
+            @media screen and (max-width: 640px)
+                text-align center
+
+            .unit:first-child
+                margin-top 2em
+
+            .kudos-count
+                padding 20px 28px
+                border-radius 3px
+
+                background-color $color_grey_90
+
+                font-size 0.9em
+                font-weight 600
+
+            .inline-button
+                @media screen and (max-width: 640px)
+                    width 50%
+
+        footer
+            .edit-article
+                edit-article-style()
+                margin-bottom 0.85em
+
+        .article-footer
+            padding-top 1em
+            border-top 1px solid $color_grey_90
+
+            color $color_grey_50
+
+            font-size 0.85em
+            line-height 1.7em
+
+            .date
+            .authors
+                font-weight 600
+
+            .date
+                color $color_black
+
+            .article-contributors
+                display inline
+
+                li
+                    white-space nowrap
+
+                    &::after
+                        content ',\2009'
+
+            .footer-tags
+                margin-top 0.5em
+
+                @media screen and (max-width: 640px)
+                    margin-bottom 1em
+
+                ul
+                    display inline
+
+                a
+                    tags-style()
+
+    .article-stats
+        margin-top 4.8em
+        padding-left 0.6em
+        opacity 0.5
+
+        transition $transition_quick
+
+        @media screen and (max-width: 800px)
+            margin-top 2em
+
+        &:hover
+            opacity 1
+
+        .article-views
+        .article-kudos
+            font-size 1.2em
+            line-height 2.2em
+            text-transform uppercase
+
+            @media screen and (max-width: 800px)
+                font-size 1em
+
+        .article-views
+            color $color_green
+
+        .article-kudos
+            color $color_blue_light
+            margin-bottom 2em
+
+        .article-stats-count
+            font-size 2.5em
+            font-weight 800
+
+            @media screen and (max-width: 800px)
+                font-size 1.8em
+
+            &::after
+                content '\2009'
+
+    .article-stats.only-phone
+        margin 0
+        padding-left 1.1em
+        opacity 1
+
+        .article-views
+        .article-kudos
+            font-size 0.85em
+            display inline-block
+            white-space nowrap
+
+        .article-kudos
+            margin 0 0 0 0.5em
+
+        .article-stats-count
+            font-size 1.4em
+
+    .article-suggestions
+        h5
+            margin 2.3em 0 1.2em 0
+            padding-bottom 0.5em
+            border-bottom 4px solid $color_grey_95
+
+            font-family $type_serif
+            font-size 1.4em
+            font-weight 600
+            text-transform uppercase
+
+            @media screen and (max-width: 800px)
+                margin 1.5em 0 1.2em 0
+
+        .nested
+            @media screen and (max-width: 800px)
+                padding 0 1em
+
+    #disqus_thread
+        @media screen and (max-width: 800px)
+            padding 0 1em

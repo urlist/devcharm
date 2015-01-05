@@ -1,0 +1,37 @@
+.sidebar
+    margin-top 0.6em
+
+    opacity 0.5
+    transition opacity 0.5s ease
+
+    @media screen and (max-width: 800px)
+        opacity 1
+
+    &:hover
+        opacity 1
+
+    h4
+        margin 0
+        padding-bottom 0.35em
+        border-bottom 1px solid $color_grey_80
+
+        color $color_grey_50
+
+        font-family $type_serif
+        font-size 1em
+        font-weight 700
+        line-height 1.2em
+
+        @media screen and (max-width: 640px)
+            font-size 1.5em
+            margin 0 0 0.85em 0
+
+        a
+            color $color_black
+            border-bottom none
+
+            &:hover
+                color $color_blue_light
+
+    img
+        max-width 100%

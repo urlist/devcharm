@@ -1,0 +1,81 @@
+
+// Generic button styles
+
+button-style($bg_color_hover=$color_grey_70, $color_hover=$color_black, $bg_color=$color_grey_90, $color=$color_grey_35)
+    $inset_shadow = inset 0px 0px 3px 2px
+    box-sizing border-box
+    background-color $bg_color
+    color $color
+
+    &:hover
+        color $color_hover
+        background-color $bg_color_hover
+
+    &:active
+        box-shadow $inset_shadow shade(@background-color, 20%)
+
+.button
+    button-style()
+
+    display block
+    margin 0 auto
+    padding 20px 28px
+    border-radius 3px
+    border-bottom none
+
+    font-size 0.9em
+    font-weight 600
+    text-align center
+    text-transform uppercase
+
+    transition $transition_quick
+
+.inline-button
+    @extend .button
+    display inline-block
+    width auto
+
+    @media screen and (max-width: 640px)
+        width 100%
+
+button
+    @extend .button
+    width 100%
+    border none
+
+    &:focus
+        outline 0
+
+.btn-small
+    @extend .button
+    padding 12px 22px
+
+.btn-xsmall
+    @extend .button
+    padding 6px 12px
+    font-size 0.75em
+
+.btn-xxsmall
+    @extend .btn-xsmall
+    padding 0 9px
+
+// Specific buttons styles
+
+.btn-green
+    @extend .button
+    button-style(lighten($color_green, 20%), $color_grey_8, $color_green, $color_grey_8)
+
+.btn-blue
+    @extend .button
+    button-style($color_blue_light, white, $color_blue_xlight, white)
+
+.btn-wiki
+    @extend .button
+    button-style(shade($color_wiki, 5%), shade($color_wiki, 50%), $color_wiki, shade($color_wiki, 40%))
+
+.btn-outline
+    @extend .button
+    button-style($color_blue_light, white)
+    background-color transparent
+    color $color_blue_light
+    box-shadow inset 0 0 0 1px $color_blue_light

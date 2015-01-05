@@ -1,0 +1,46 @@
+html.docs_page
+
+    .banner-top
+        background-color $color_grey_8
+
+        @media screen and (max-width: 800px)
+            padding 0 1em
+
+        h1
+            color white
+
+            font-family $type_serif
+            font-size 5em
+
+            @media screen and (max-width: 800px)
+                font-size 3em
+
+    .docs-main
+
+        .unit
+            @media screen and (max-width: 800px)
+                padding 0 1em
+
+        h2
+            margin-top 1.8em
+
+            font-family $type_serif
+            font-size 1.6em
+
+        p
+            font-size 1.2em
+            line-height 1.6em
+
+            strong
+                font-weight 600
+
+            @media screen and (max-width: 800px)
+                font-size 1em
+                line-height 1.4em
+
+        code
+            border-radius 2px
+            background-color $color_grey_90
+
+            font-family $type_mono
+            font-size 1em

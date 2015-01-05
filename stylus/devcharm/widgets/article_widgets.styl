@@ -1,0 +1,189 @@
+.article-widget
+    // Mixin for wip/wiki badges
+    widget-badge-style($color_badge=$color_grey_8, $color_badge_bg=$color_grey_90)
+        display inline-block
+        margin-top 0.6em
+        padding 0.2em 0.6em
+        border-radius 3px
+
+        color $color_badge
+        background-color $color_badge_bg
+
+        font-size 0.85em
+        text-transform uppercase
+
+        @media screen and (max-width: 640px)
+            display block
+            text-align center
+
+    margin-bottom 0.5em
+    padding 0 0.3em
+
+    @media screen and (max-width: 800px)
+        padding 0.5em 0 0 0
+
+    @media screen and (max-width: 640px)
+        border-top 1px solid $color_grey_90
+
+        &:first-of-type
+            border-top none
+
+    header
+
+        .widget-stats > div
+            display inline-block
+
+            @media screen and (max-width: 640px)
+                display block
+
+        .widget-stats
+            margin-bottom 0.65em
+
+            font-size 0.75em
+            text-transform uppercase
+            font-weight 600
+
+            .views
+            .kudos
+                @media screen and (max-width: 640px)
+                    margin 0.2em
+
+            .views
+                color $color_grey_8
+                padding-right 0.3em
+
+            .kudos
+                color $color_grey_50
+
+            .count
+                font-weight 700
+
+        h4
+            margin 0 0 0.4em 0
+
+            font-family $type_serif
+            font-size 1.5em
+            font-weight 400
+            line-height 1.3em
+
+    .article-summary
+        .widget-punchline
+            font-family $type_serif
+            padding-right 1em
+
+            color $color_grey_8
+
+            font-size 1em
+            line-height 1.5em
+
+    footer
+        .info
+            margin-top 0.85em
+            font-size 0.85em
+            font-weight 600
+
+            .widget-contributors
+            .widget-tags
+                color $color_grey_50
+
+            .widget-contributors
+                line-height 1.7em
+
+                a
+                    color $color_grey_8
+                    border-bottom 1px dotted $color_grey_50
+
+                    &:hover
+                        color $color_blue_light
+                        border-bottom 1px dotted @color
+
+            .widget-badge-wip
+                widget-badge-style()
+
+            .widget-badge-wiki
+                widget-badge-style(shade($color_wiki, 12%),lighten($color_wiki, 80%))
+
+            .widget-tags
+            .widget-tags > ul
+                display inline
+
+                ul
+                    li
+                        line-height 2em
+
+                    a
+                        tags-style()
+
+
+// Editorial boxes on landing page
+
+.editorial
+    position relative
+    max-width 100%
+    min-height 370px
+
+    background-color white
+    border 1px solid $color_grey_80
+
+    @media screen and (max-width: 800px)
+        margin-bottom 0.65em
+
+    @media screen and (max-width: 640px)
+        margin-bottom 0.5em
+
+    &::after
+        content ''
+
+        position absolute
+        z-index -10
+        top 4px
+        left 4px
+
+        display block
+        width 100%
+        height 100%
+
+        background-color $color_grey_95
+        border 1px solid $color_grey_80
+
+    .article-widget
+        margin-bottom 0
+        padding 2.4em
+
+        @media screen and (max-width: 640px)
+            padding 1.8em
+
+        h4
+            font-family $type_sans
+            font-size 2em
+            font-weight 300
+            line-height 1.2em
+
+            @media screen and (max-width: 640px)
+                font-size 1.7em
+
+        .widget-punchline
+            color $color_grey_8
+            font-family $type_sans
+            font-size 1em
+            line-height 1.5em
+
+            &::before
+                color $color_grey_8
+                font-size 0.75
+                font-family 'FontAwesome'
+                content '\f10d\2002'
+
+    footer
+        .info
+            margin-top 1.2em
+
+            .widget-contributors
+                font-family $type_serif
+                font-size 1.2em
+                font-weight 400
+
+            .widget-tags
+                display inline
+                margin-top 1em
+                line-height 2em

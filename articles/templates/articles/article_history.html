@@ -1,0 +1,47 @@
+{% extends '_main.html' %}
+{% block css_namespace %}article_history{% endblock %}
+
+{% block content %}
+
+<div class="banner-title">
+    <div class="row">
+        <div class="unit">
+            <h1>{{ article.title }}</h1>
+            <h2>{{ article.punchline }}</h2>
+        </div>
+        <div class="unit">
+            <button>back to list</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <table class="unit nested">
+        <thead class="no-phone">
+            <tr class="row">
+                <th class="unit u-25">Date</th>
+                <th class="unit u-25">Author</th>
+                <th class="unit u-25">Changes</th>
+                <th class="unit u-25">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in "1234567" %}
+        <tr class="row">
+            <td class="unit u-25">24 Feb 2014 | 12:00 pm</td>
+            <td class="unit u-25">By <a href="">Piersilvio</a></td>
+            <td class="unit u-25">
+                <span>+ 124</span>
+                <span>- 126</span>
+            </td>
+            <td class="unit u-25">
+                <button>view diff</button>
+                <button>view version</button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

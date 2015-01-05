@@ -1,0 +1,93 @@
+{% extends '_baseline.html' %}
+{% block css_namespace %}editor article_details{% endblock %}
+
+{% load staticfiles %}
+
+{% block additional_js %}
+    <script src="{% static '//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js' %}"></script>
+    <script src="{% static 'marked/marked.js' %}"></script>
+    <script src="{% static 'js/editor.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<form method="post" action="{% if article.pk %}{% url "articles_article_rest_save" article.pk %}{% else %}{% url "articles_article_rest_save" %}{% endif %}" class="{% if article.author == request.user %}is-mine{% endif %}{% if article.published_at %} is-published{% endif %}">
+    {% csrf_token %}
+    <input type="hidden" name="article_id" value="{{ object.pk }}" />
+            <div class="editor-header">
+                <div class="row no-wrap">
+                    <ul class="unit u-25 menu-list">
+
+                        {% if article.is_published %}
+                        <li>
+                            <a href="{% url 'articles_article_detail' pk=article.pk slug=article.slug %}" class="btn-small js-back">
+                                <i class="fa fa-arrow-left"></i> Back to article</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'profiles_profile' %}" class="btn-small js-back"><i class="fa fa-arrow-left"></i> Back</a>
+                        </li>
+                        {% endif %}
+
+                        <li class="guidelines">
+                            <a href="{% url 'docs_guidelines' %}" target="_blank">Guidelines</a>
+                        </li>
+                    </ul>
+                    <ul class="unit u-75 menu-list editor-controls">
+                        <li>
+                            <select name="keybinding">
+                                <option value="noop">Key binding</option>
+                                <option disabled>--------------</option>
+                                <option value="default">Standard</option>
+                                <option value="ace/keyboard/emacs">Emacs</option>
+                                <option value="ace/keyboard/vim">Vim</option>
+                            </select>
+                        </li>
+                        <li class="control-update">
+                            <a href="#" class="btn-small btn-blue js-save">
+                                <i class="fa fa-save"></i> Save {% if article.is_published %}changes{% else %}draft{% endif %}
+                            </a>
+                        </li>
+                        {% if not article.is_published and article.pk %}
+                        <li class="control-publish">
+                            <a href="#" class="btn-small btn-green js-publish" data-endpoint="{{ article.get_publish_url }}">
+                            <i class="fa fa-bullhorn"></i> Publish</a>
+                        </li>
+                        <li class="control-delete">
+                            <a href="#" class="btn-small js-delete" data-endpoint="{{ article.get_delete_url }}">
+                            <i class="fa fa-trash-o"></i> Delete</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="editor-main">
+
+                <div class="editor-ace">
+                    <div id="aceeditor">{{ form.raw_content }}</div>
+                </div>
+
+                <div class="editor-article">
+                    <div id="preview">
+                        <div class="preview-wrapper">
+                            <article class="article-wrapper">
+                                <header>
+                                    <div class="editor-banner">
+                                        <i class="fa fa-warning"></i> This is only a preview of the article!
+                                    </div>
+                                    <h1 class="title">{{ article.title }}</h1>
+                                    <h2 class="punchline">{{ article.punchline }}</h2>
+                                </header>
+
+                                <div class="article-description"></div>
+
+                                <div class="article-content"></div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</form>
+
+{% endblock %}

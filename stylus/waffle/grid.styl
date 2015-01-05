@@ -1,0 +1,203 @@
+// Waffle
+// Responsive grid for modular layouts
+// based on http://codepen.io/ilwcss/pen/KdkbI by @ilwcss
+// and inspired by Gridism http://cobyism.com/gridism/ by @cobyism
+// with much help wow from @vrde
+
+// Reset default margins
+body
+    margin 0
+
+// Define the box-model
+.main-wrap
+.row
+.unit
+    box-sizing border-box
+
+.row
+    font-size 0
+    max-width $width_layout
+    margin 0 auto
+
+    // Wider wrap on wider screens
+    @media screen and (min-width: 1800px)
+        max-width $width_layout_wider
+
+.row.no-wrap
+    max-width 100% !important
+
+// Define basic unit
+.unit
+    display inline-block
+    border $border_default solid transparent
+    font-size $type_size
+    vertical-align top
+
+// Basic Grid System
+
+// Define units
+.unit
+    width $full
+
+.u-50
+    width ($full / 2)
+
+.u-33
+    width ($full / 3)
+
+.u-66
+    width ($full * 2 / 3)
+
+.u-25
+    width ($full / 4)
+
+    @media screen and (max-width: 800px)
+        .unit.u-25
+            width $full !important
+
+.u-75
+    width ($full * 3 / 4)
+
+    @media screen and (max-width: 800px)
+        .unit.u-75
+            width $full !important
+
+.u-16
+    width ($full / 6)
+
+// Responsive
+.row
+    .unit
+        @media screen and (max-width: 800px)
+            border $border_tablet solid transparent
+
+        // Stack everything on phones
+        @media screen and (max-width: 640px)
+            width $full !important
+            border $border_phone solid transparent
+
+
+// Waffle Grid System: the parent tells the children
+.split3
+    .unit
+        width ($full / 3)
+
+        @media screen and (max-width: 800px)
+            width ($full / 2)
+            border $border_tablet solid transparent
+
+.split4
+    .unit
+        width ($full / 4)
+
+        @media screen and (max-width: 800px)
+            width ($full / 3)
+            border $border_tablet solid transparent
+
+.split5
+    .unit
+        width ($full / 5)
+
+        @media screen and (max-width: 1024px)
+            width ($full / 4)
+
+        @media screen and (max-width: 800px)
+            width ($full / 3)
+            border $border_tablet solid transparent
+
+.split6
+    .unit
+        width ($full / 6)
+
+        @media screen and (max-width: 1024px)
+            width ($full / 5)
+
+        @media screen and (max-width: 800px)
+            width ($full / 3)
+            border $border_tablet solid transparent
+
+.split3
+.split4
+.split5
+.split6
+    .unit
+        @media screen and (max-width: 640px)
+            width: ($full / 2) !important
+            border $border_phone solid transparent
+
+.split3.one-column
+.split4.one-column
+.split5.one-column
+.split6.one-column
+    .unit
+        @media screen and (max-width: 640px)
+            width: ($full) !important
+            border $border_phone solid transparent
+
+
+// Play with the grid
+
+// Want to distribute elements evenly in a row?
+.row.justify
+    text-align justify
+
+    &::after
+        content ''
+        width $full
+        display inline-block
+
+.row.justify
+    .unit
+        width auto
+
+        @media screen and (max-width: 640px)
+            width auto !important
+
+// Center elements in a row
+.row.center
+    text-align center
+
+// Remove gutters
+.no-gutters
+    .unit
+        border none !important
+
+// Getting rid of borders for nested units
+.row
+    .unit.nested
+        border none
+
+// Utility classes
+
+.no-desktop
+    // Elements are hidden only on desktop screens
+    @media screen and (min-width: 960px)
+        display none !important
+
+.no-phone
+    // Elements are hidden only on small screens, phones
+    @media screen and (max-width: 640px)
+        display none !important
+
+.only-desktop
+    // Elements are shown only on desktop screens
+    @media screen and (max-width: 960px)
+        display none !important
+
+.only-phone
+    // Elements are shown only on small screens, phones
+    @media screen and (min-width: 640px)
+        display none !important
+
+.reset-list
+    // Stop worrying about list types
+    list-style-type none
+    padding 0
+    margin 0
+
+.menu-list
+    // When lists are used as horizontal menus
+    @extend .reset-list
+
+    li
+        display inline-block

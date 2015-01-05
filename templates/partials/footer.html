@@ -1,0 +1,26 @@
+{% load staticfiles %}
+
+<footer class="main-footer no-phone">
+    <div class="row center">
+        <ul class="unit menu-list">
+            <li><a href="{% url 'docs_manifesto' %}">Manifesto</a></li>
+            <li><a href="https://twitter.com/_devcharm" target="_blank">Twitter</a></li>
+            <!--li><a href="{% url 'docs_terms' %}">Terms and Conditions</a></li-->
+            <li>Devcharm 2014, Berlin</li>
+            <li><a href="mailto:hello@devcharm.com" class="mailing">hello@devcharm.com</a></li>
+        </ul>
+    </div>
+</footer>
+
+<footer class="main-footer mobile-footer only-phone">
+    <div class="row center">
+        <ul class="unit menu-list">
+            <li class="mobile-footer-logo"><img src="{% static 'images/logo.svg' %}" alt="logo devcharm"></li>
+            <li><a href="{% url 'docs_manifesto' %}">Manifesto</a></li>
+            <li><a href="https://twitter.com/_devcharm" target="_blank">Twitter</a></li>
+            <!--li><a href="{% url 'docs_terms' %}">Terms</a></li-->
+            <li class="mailing"><a href="mailto:hello@devcharm.com" class="mailing">hello@devcharm.com</a></li>
+            <li class="copyright">Devcharm 2014</li>
+        </ul>
+    </div>
+</footer>

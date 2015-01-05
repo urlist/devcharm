@@ -1,0 +1,39 @@
+.banner-cta
+    position relative
+    margin-top 1em
+    padding 1em 0.7em
+    border solid 1px $color_grey_80
+    border-radius 2px
+
+    background-color $color_grey_95
+
+    p
+        margin 0
+
+        font-size 0.85em
+        text-align center
+        font-weight 600
+
+        span
+            padding-left 0.5em
+
+            a
+                border-bottom 1px solid $color_blue_light
+
+                &:hover
+                    color $color_blue
+                    border-bottom 1px solid @color
+
+    .banner-close
+        position absolute
+        top 5px
+        right 8px
+
+        .fa
+            color $color_grey_70
+            font-size 1.1em
+
+            transform(rotate(45deg))
+
+            &:hover
+                color $color_grey_50

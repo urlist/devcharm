@@ -1,0 +1,109 @@
+{% extends 'styleguide/_baseline.html' %}
+
+{% block body %}
+<div class="row center">
+    <div class="unit">
+        <h1>Dëvchärm StyleGuide</h1>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="unit u-33">
+        <h4>Pages</h4>
+        <ul>
+            <li>
+                <a href="{% url 'styleguide_view_articles_home' %}">Landing</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_tag_menu' %}">Tag Menu</a>
+            </li>
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+
+            <li>
+                <a href="{% url 'styleguide_view_profile' %}">Profile</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_my_profile' %}">My Profile</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_empty_profile' %}">Emtpy Profile</a>
+            </li>
+
+            <li>
+                <a href="{% url 'styleguide_view_article_history' %}">History</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_articles_tag' %}">Tag</a>
+            </li>
+        </ul>
+
+        <h4>Article views</h4>
+        <ul>
+            <li>
+                <a href="{% url 'styleguide_view_article' %}">Article</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_full_article' %}">Full Autorial Article</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_full_wiki_article' %}">Full Wiki Article</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_wip_article' %}">WIP Article</a>
+            </li>
+            <li>
+                <a href="{% url 'styleguide_view_unpublished_article' %}">Unpublished Article</a>
+            </li>
+        </ul>
+
+        <h4>Article editor</h4>
+        <ul>
+            <li>
+                <a href="{% url 'styleguide_view_article_form' %}">Article Editor</a>
+            </li>
+        </ul>
+
+        <h4>Docs</h4>
+        <ul>
+            <li>
+                <a href="{% url 'docs_manifesto' %}">Manifesto</a>
+            </li>
+            <li>
+                <a href="{% url 'docs_guidelines' %}">Guidelines</a>
+            </li>
+            <li>
+                <a href="{% url 'docs_about' %}">About</a>
+            </li>
+            <li>
+                <a href="{% url 'docs_terms' %}">Terms</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="unit u-33">
+        <h4>Partials</h4>
+        <ul>
+            <li>
+                <a href="">Landing</a>
+            </li>
+
+            <li>
+                <a href="">Tag</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="unit u-33">
+        <h4>Widgets</h4>
+        <ul>
+            <li>
+                <a href="{% url 'styleguide_widgets' %}">Widgets</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock body %}
+

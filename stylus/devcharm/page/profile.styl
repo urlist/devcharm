@@ -1,0 +1,218 @@
+html.profile
+
+    .banner-top
+        padding 1em 0 2em 0
+        background-color $color_grey_8
+
+        @media screen and (max-width: 640px)
+            padding 1em 1em 2em 1em
+
+        .unit
+
+            h1
+            h2
+            p
+                color white
+
+            h1
+                margin 0.5em 0 0 0
+
+                font-family $type_serif
+                font-size 4.5em
+                font-weight 700
+
+                @media screen and (max-width: 640px)
+                    font-size 2.5em
+
+            .devcharm-score
+                display inline-block
+                margin-top 1em
+                padding 0.6em 1em
+                border-radius 3px
+
+                background-color lighten($color_black, 20%)
+                color $color_grey_90
+
+                font-size 0.95em
+                line-height 1.4em
+
+                white-space nowrap
+
+            .edit-profile-btn
+                margin-left 1em
+                border-bottom 1px dotted white
+
+                color white
+
+                font-size 0.85em
+                font-weight 600
+                text-transform uppercase
+
+            .profile-bio
+                p
+                    margin 1.2em 0 1.2em 0
+                    padding 0 6em
+
+                    color white
+
+                    font-size 1.4em
+                    line-height 1.6em
+
+                    @media screen and (max-width: 640px)
+                        padding 0 1em
+
+                        font-size 1.2em
+                        line-height 1.4em
+
+                    a
+                        border-bottom 1px dotted $color_green
+                        color $color_green
+
+                        transition $transition_quick
+
+                        &:hover
+                            border-bottom 1px dotted $color_grey_80
+                            color $color_grey_80
+
+        .profile-stats
+            $color_stats = $color_green, $color_grey_80, $color_blue_xlight
+            margin 0 auto
+
+            li
+                position relative
+                z-index 1
+
+                min-height 2em
+                padding 0.75em 0 1.2em 0
+
+                color $color_grey_8
+
+                text-align center
+
+                @media screen and (max-width: 640px)
+                    padding 0.5em 0 1em 0
+
+                for color, i in $color_stats
+                    &:nth-of-type({i+1})::after
+                        content ''
+
+                        position absolute
+                        z-index -2
+                        top 0
+                        bottom 0
+                        left 0
+                        right 0
+
+                        border-radius 2px
+
+                        background-color color
+
+                font-weight 300
+
+                .count
+                    font-size 3em
+                    font-weight 300
+
+                    @media screen and (max-width: 640px)
+                        font-size 2em
+
+                .label
+                    font-size 0.85em
+                    font-weight 600
+                    text-transform uppercase
+
+            .u-16
+                @media screen and (max-width: 800px)
+                    width 25%
+
+        .profile-edit
+
+            form
+                margin-top 1.5em
+
+            .edit-buttons
+                text-align right
+
+    .profile-section
+
+        .unit.nested
+            @media screen and (max-width: 800px)
+                padding 0 1em
+
+        .section-title
+            @media screen and (max-width: 800px)
+                padding 0 1em
+
+            h3
+                margin 1.5em 0 0.5em 0
+                padding 0.5em 0
+                border-bottom 1px solid $color_grey_80
+
+                font-family $type_serif
+                font-size 1.85em
+                font-weight 400
+                text-align center
+
+                span
+                    color $color_grey_50
+
+                @media screen and (max-width: 800px)
+                    margin 0.5em 0 0.3em 0
+                    border-top 1px solid $color_grey_80
+
+                    font-size 1.5em
+
+        .write-post
+            @media screen and (max-width: 800px)
+                padding 1em 1em 2em 1em
+
+        .drafts
+            margin-top 1.5em
+
+            .article-widget
+                .punchline
+                    color $color_grey_35
+                    font-style italic
+
+        .empty-category
+            width 100%
+            margin-bottom 2em
+
+            font-weight 600
+            text-align center
+
+            div
+                margin 0.5em 0
+
+                color $color_grey_80
+                font-size 1.2em
+
+                .fa-eye
+                    color $color_grey_90
+                    font-size 4em
+
+        .btn-load
+
+            .fa
+                font-size 1em
+
+                &::after
+                    content '\2002'
+
+
+    // Edit profile stuff
+    .profile-edit
+        display none
+
+    [for="toggle-edit-form"]
+        cursor pointer
+
+    #toggle-edit-form
+        display none
+
+    #toggle-edit-form:checked ~ .profile-data
+    #toggle-edit-form:checked ~ .profile-stats
+        display none
+
+    #toggle-edit-form:checked ~ .profile-edit
+        display block

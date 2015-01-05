@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load articles %}
+{% block additional_link %}
+    <link rel="alternate" href="{% url "articles_feed_global" %}" />
+{% endblock %}
+
+
+{% block main %}
+    {% block editors_picks %}
+        <ul class="editors-picks">
+    {% for editors_pick in editors_picks %}
+        <li class="article editors-pick">{{ editors_pick.title }}</li>
+    {% endfor %}
+    </ul>
+    {% endblock %}
+
+    {% block work_in_progress %}
+        {% with ul_classes='work-in-progress' section_articles=wip_articles always_edit='True' %}
+            {% include 'articles/partials/articles_as_ul.html' %}
+        {% endwith %}
+    {% endblock %}
+
+    {% block main_list_order_links %}
+        <ul class="nav">
+            <li><a class="control" href="?sort=hot">hot</a></li>
+            <li><a class="control" href="?sort=new">new</a></li>
+            <li><a class="control" href="?sort=views">views</a></li>
+            <li><a class="control" href="?sort=kudos">kudos</a></li>
+            <li><a class="control" href="?sort=last_edited">last edited</a></li>
+        </ul>
+    {% endblock %}
+    {% block main_list %}
+        {% with ul_classes='article-list' section_articles=article_list %}{% include 'articles/partials/articles_as_ul.html' %}{% endwith %}
+    {% endblock %}
+
+    {% block trending_tags %}
+        <ul class="trending-tags">
+        {% for trending_tag in trending_tags %}
+            <li class="tag trending-tag">{{ trending_tag.title }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+
+    {% block interaction_buttons %}
+        <a href="{% url "articles_article_create" %}">Start new list</a>
+    {% endblock %}
+{% endblock %}

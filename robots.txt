@@ -1,0 +1,4 @@
+user-agent: *
+disallow: /articles/*/revisions/*
+disallow: /articles/*/diff_with/*
+

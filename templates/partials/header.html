@@ -1,0 +1,104 @@
+{% load staticfiles %}
+{% load tags %}
+<header class="main-header only-desktop">
+    <div class="row">
+        <ul class="unit u-50 menu-list">
+            <li>
+                <a href="{% url 'homepage' %}">Home</a>
+            </li>
+            <li>
+                <a href="{% url 'docs_manifesto' %}">Manifesto</a>
+            </li>
+            <li>
+                <label for="slide-tags">Tags</label>
+            </li>
+        </ul>
+
+        <ul class="unit u-50 menu-list login">
+
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'profiles_profile' %}">{{ user.username }} profile</a>
+            </li>
+            {% if user.is_staff%}
+            <li>
+                <a href="/admin"><span><i class="fa fa-wrench"></i> Admin</span></a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="/login/github">Login</a>
+            </li>
+            <li>
+                <a href="/login/github" data-ga="registration,signup,header,10">Signup</a>
+            </li>
+            {% endif %}
+
+            <li>
+                <a href="{% url 'homepage' %}">
+                    <img src="{% static 'images/logo.svg' %}" alt="logo devcharm">
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<input type="checkbox" name="" id="slide-tags">
+<div class="tags-menu">
+    <div class="row">
+        <div class="unit">
+            {% tags_list 'menu-list' %}
+        </div>
+    </div>
+</div>
+
+<header class="mobile-header no-desktop">
+    <ul class="row justify reset-list">
+        <li class="unit">
+            <label for="slide-mobile-menu">
+                <span><i class="fa fa-bars"></i> Menu</span>
+            </label>
+        </li>
+        <li class="unit">
+            <img src="{% static 'images/logo.svg' %}" alt="logo devcharm" class="mobile-logo">
+        </li>
+    </ul>
+</header>
+
+<input type="checkbox" name="" id="slide-mobile-menu">
+<div class="drop-down-mobile">
+    <div class="row no-gutters">
+        <ul class="unit menu-list">
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'profiles_profile' %}">{{ user.username }} profile</a>
+            </li>
+            {% if user.is_staff%}
+            <li>
+                <a href="/admin"><span><i class="fa fa-wrench"></i> Admin</span></a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="/login/github">Login || Signup</a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'homepage' %}">Home</a>
+            </li>
+            <li>
+                <a href="{% url 'docs_manifesto' %}">Manifesto</a>
+            </li>
+            <li class="mobile-menu-tags">
+                {% tags_list 'menu-list' %}
+            </li>
+        </ul>
+    </div>
+</div>
+

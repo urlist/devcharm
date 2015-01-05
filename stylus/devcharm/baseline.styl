@@ -1,0 +1,37 @@
+// Shared styles
+
+@import url("//fonts.googleapis.com/css?family=Open\+Sans:300,400,600,700,800,300italic,400italic,600italic,700italic,800italic&subset=latin,latin-ext")
+@import url("//fonts.googleapis.com/css?family=Inconsolata")
+@import url("//fonts.googleapis.com/css?family=Bitter:400,700,400italic&subset=latin,latin-ext")
+
+html
+body
+    height 100%
+
+body
+input
+button
+textarea
+    text-rendering optimizeLegibility
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+    color $color_black
+    font-family $type_sans
+    font-size 16px
+
+a
+    color $color_blue_light
+    text-decoration none
+
+    transition $transition_quick
+
+    &:hover
+        color $color_blue
+
+code
+    padding 2px 6px 3px 6px
+    border-radius 2px
+    background-color $color_grey_95
+    border 1px solid $color_grey_80
+    color $color_black
+    font-family "Inconsolata", monospaced

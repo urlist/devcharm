@@ -1,0 +1,152 @@
+menu-style($color = $color_grey_50)
+    border-bottom none
+    color $color
+    font-size 1em
+    font-weight 600
+
+    transition $transition_quick
+
+    &:hover
+        color white
+
+menu-tag-style($color_tag = white, $color_bg_tag = $color_blue_light)
+    border-radius 2px
+
+    color $color_tag
+    background-color $color_bg_tag
+
+    font-size 0.85em
+    font-weight 600
+
+    transition $transition_quick
+
+.main-header
+    width 100%
+    background-color $color_black
+
+    .menu-list
+        padding 0.5em 0
+        vertical-align middle
+
+        li
+            padding-right 1em
+            vertical-align middle
+
+            a
+            label
+                menu-style()
+
+            label
+                cursor pointer
+        img
+            display block
+            width 100%
+            margin 0
+
+    .login
+        text-align right
+        vertical-align middle
+
+#slide-tags[type=checkbox]
+    display none
+
+#slide-tags:checked ~ .tags-menu
+    max-height 300px
+
+.tags-menu
+    max-height 0
+    width 100%
+    overflow hidden
+    background-color $color_blue_xlight
+
+    transition max-height 0.8s ease-in-out
+
+    ul
+
+        li
+            white-space nowrap
+            padding 0.65em 0.2em 0.65em 0
+
+            a
+                menu-tag-style()
+                padding 0.5em 0.7em
+
+                &:hover
+                    background-color white
+                    color $color_blue
+
+.mobile-header
+    max-width 100%
+    padding 0.5em
+
+    background-color $color_black
+
+    li
+        vertical-align middle
+
+        label
+            menu-style()
+
+            .fa
+                &::after
+                    content '\2002'
+
+        img
+            width 90%
+            display block
+
+
+#slide-mobile-menu[type=checkbox]
+    display none
+
+#slide-mobile-menu:checked ~ .drop-down-mobile
+    max-height 550px
+    opacity 1
+
+.drop-down-mobile
+    overflow hidden
+    max-height 0
+
+    background-color darken($color_black, 20%)
+
+    opacity 0
+
+    li
+        display block
+        padding 0.6em 0 0.6em 0.75em
+        border-bottom 1px solid $color_grey_8
+
+        font-weight 600
+
+        &:last-of-type
+            border-bottom none
+
+        a
+            font-size 1em
+            color $color_grey_70
+
+    .mobile-menu-tags
+
+        .menu-list
+            display inline
+
+            .mobile-title-tags
+                display inline
+                padding-right 0.5em
+
+                color $color_grey_25
+
+                font-size 1em
+
+            li
+                display inline
+                padding 0
+                border-bottom none
+
+                line-height 2em
+
+                a
+                    menu-tag-style($color_grey_70, $color_grey_8)
+
+                    padding 0.3em 0.5em
+                    white-space nowrap

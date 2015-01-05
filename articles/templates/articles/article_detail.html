@@ -1,0 +1,258 @@
+{% extends "_main.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% load articles %}
+{% block css_namespace %}article_details{% endblock %}
+
+{% comment %}
+
+You can use all the attributes from the Article model
+    article.title
+    article.description
+    article.punchline
+    article.published_at
+    article.updated_at
+    article.created_at (but article.published_at is more useful)
+    article.is_wiki
+    article.views_count
+    article.received_kudos_count
+    article.editors_count
+    article.revisions_count
+    article.rendered_html
+
+Be aware that to render the content you should use:
+    {{ article.rendered_html|safe }}
+
+
+About the tags of the article, there is the "tags" list, you can access it like this:
+    {% for tag in article.tags.all %}
+        {{ tag.title }} ...
+    {% endfor %}
+
+
+About related lists, I'll keep the same structure as the tag page, so you have:
+  related_tag_one, the first tag related with the main_tag
+  related_articles_one, containing articles related to the main tag
+  related_tag_two, the second tag related with the main_tag
+  related_articles_two, containing articles related to the main tag
+
+
+About the authors involved in the article, you can use the "original_author", that is the author
+who started the list first. Here are the data:
+    article.original_author.author_profile.display_name
+    article.original_author.author_profile.username
+    article.original_author.author_profile.bio_html
+    article.original_author.author_profile.github_profile_url
+    article.original_author.author_profile.score
+    article.original_author.author_profile.articles_published_count
+    article.original_author.author_profile.edits_count
+    article.original_author.author_profile.kudos_given_count
+
+
+About all the other contributors, you can find them in the list:
+    article.other_contributors
+When iterating over "other_contributors", you can access the same data that "original_author" has.
+It can be something like
+    {% for author in article.other_contributors %}
+        {{ author.author_profile.display_name }} ...
+    {% endfor %}
+
+
+Additional links or stuff in the page:
+a link to the revisions
+the "kudos" button
+the "know about <tag>, start a list"
+
+{% endcomment %}
+
+{% block title %}{{ article.title }} /* Devcharm */{% endblock title %}
+{% block additional_meta %}
+    <meta name="og:title" content="{{ article.title }}">
+    <meta name="og:description" content="{{ article.punchline|striptags }}">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@_devcharm">
+    <meta name="twitter:title" content="{{ article.title }}">
+    <meta name="twitter:description" content="{{ article.punchline|striptags }}">
+    <meta name="twitter:image:src" content="{% random_image %}">
+
+    <meta name="keywords" content="{{ article.keywords|default:'' }}">
+    <meta name="description" content="{{ article.punchline|striptags }}">
+
+    <link rel="canonical" href="{{ canonical_url }}">
+{% endblock additional_meta %}
+
+{% block additional_js %}
+<script src="{% static 'js/article.js' %}"></script>
+{% endblock additional_js %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+<div class="row banner-cta-container">
+    <div class="unit">
+        {% include 'partials/banner_cta.html' %}
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="unit u-75">
+
+        <ul class="article-stats reset-list article-details only-phone">
+            <li class="article-views">
+                <span class="article-stats-count views-count">{{ article.views_count|intcomma }}</span> views
+            </li>
+            <li class="article-kudos">
+                <span class="article-stats-count kudos-count">{{ article.received_kudos_count|intcomma }}</span> kudos
+            </li>
+        </ul>
+
+        <article class="article-wrapper{% if article.is_wiki %} is-wiki{% endif %}">
+            <header>
+                <h1 class="title">{{ article.title }}</h1>
+                <h2 class="punchline">{{ article.punchline|safe }}</h2>
+                <div class="article-details">
+                    By <a href="{{ article.original_author.author_profile.get_absolute_url }}">{{ article.original_author.author_profile.display_name }}</a>,
+                    last edit on <span class="last-update">{{ article.updated_at|date:"j M Y" }}</span>
+                    with <a href="{% url 'articles_article_revision_list' article.pk %}"><span class="revisions-count">{{ article.revisions_count }}</span> revision{{ article.revisions_count|pluralize }} <i class="fa fa-history"></i></a> in
+                    <ul class="menu-list header-tags">
+                        {% for tag in article.tags.all %}
+                        <li><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+
+                    {% if not article.published_at %}
+                    <div class="draft">
+                        <i class="fa fa-warning"></i> This list is unpublished
+                    </div>
+                    {% elif article.is_wip %}
+                    <div class="wip">
+                        <span>Stub</span><i class="fa fa-warning"></i> This seriously needs care! [ <a href="{% url "articles_article_edit" article.pk %}" data-ga="engagement,edit,niners,10">Edit this entry</a> ]
+                    </div>
+                    {% elif article.is_wiki %}
+                    <div class="wiki">
+                        <span>Wiki</span> Help Devcharm improving [ <a href="{% url "articles_article_edit" article.pk %}" data-ga="engagement,edit,niners,10">Edit this entry</a> ]
+                    </div>
+                    {% endif %}
+
+                </div>
+            </header>
+
+            <div class="article-description">
+                {{ article.description|safe }}
+            </div>
+
+            <div class="article-content">
+                {{ article.rendered_html|safe }}
+            </div>
+
+            <div class="article-actions">
+                <form action="{% url "articles_give_kudos_to_article" article.pk %}" method="post" id="kudos-form-{{ article.pk }}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}" />
+                    <button class="inline-button btn-blue give-kudos">Give kudos!</button>
+                    <span class="kudos-count">{{ article.received_kudos_count }}</span>
+                </form>
+            </div>
+
+            <footer>
+
+                {% if article|is_editable_by:request.user %}
+                <div class="edit-article">
+                    [ <a href="{% url "articles_article_edit" article.pk %}" class="js-edit-url" data-ga="engagement,edit,niners,10">Edit article</a> ]
+                </div>
+                {% endif %}
+
+                <div class="article-footer">
+                    <span class="date">{{ article.published_at|date:"j M Y" }}</span> originally posted by
+                    <a href="{{ article.original_author.author_profile.get_absolute_url }}" class="authors">{{ article.original_author.author_profile.display_name }}</a>
+                    {% if article.other_contributors %}
+                    with contributions from
+                    <ul class="menu-list article-contributors">
+                        {% for author in article.other_contributors %}
+                        <li><a href="{{ author.author_profile.get_absolute_url }}" class="authors">{{ author.author_profile.display_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <div class="footer-tags">Tags
+                        <ul class="menu-list">
+                            {% for tag in article.tags.all %}
+                            <li><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            </footer>
+        </article>
+    </div>
+
+    <div class="unit u-25">
+        <ul class="article-stats reset-list article-details no-phone">
+            <li class="article-views">
+                <span class="article-stats-count views-count">{{ article.views_count|intcomma }}</span> views
+            </li>
+            <li class="article-kudos">
+                <span class="article-stats-count kudos-count">{{ article.received_kudos_count|intcomma }}</span> kudos
+            </li>
+        </ul>
+        <div>
+            {% include "articles/partials/sidebar.html" with tag_one=related_tag_one list_one=related_articles_one tag_two=related_tag_two list_two=related_articles_two %}
+        </div>
+    </div>
+
+</div>
+
+<div class="row article-suggestions">
+    <div class="unit suggestions-title">
+        <h5>Read More</h5>
+    </div>
+    <div class="unit nested">
+        <div class="row split3 one-column">
+            <ul class="reset-list">
+                {% for article in read_more|slice:":3" %}
+                <li class="unit">
+                    {% include "articles/partials/article_widget.html" %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="unit">
+        <div id="disqus_thread"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var disqus_shortname = 'devcharm';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    function disqus_config() { this.callbacks.onNewComment = function () { sendEvent('engagement,comment,ninetiers,15'); }; }
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+{% endblock content %}
+
+{% comment %}
+    {% with article.primary_tag as tag %}
+    {% if tag %}
+    <div class="unit">
+        <span class="contribute">
+            <a href="{% url "articles_article_create" tag %}">Know about {{ tag }}? Make a list!</a>
+        </span>
+    </div>
+    {% endif %}
+    {% endwith %}
+{% endcomment %}

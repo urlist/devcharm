@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    {% load staticfiles %}
+    {% load compressed %}
+    <meta charset="UTF-8">
+    <title>Devcharm {% block title %}{% endblock %}</title>
+    <meta name="author" content="DevCharm">
+    <meta name="description" content="{% block meta_description %}DevCharm is a new network of hardcore Coders, Hackers, CTOs and Software architects, sharing what matters.{% endblock %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% compressed_css 'main' %}
+
+    {% block additional_link %}
+    {% endblock %}
+
+    {% if debug or request.user.is_staff %}
+        <!-- Here should go the Google Analytics JS snippet -->
+    {% else %}
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-45639235-1', 'devcharm.com');
+        ga('send', 'pageview');
+    </script>
+    {% endif %}
+
+    <script src="{{ STATIC_URL }}vendor/jquery/jquery-2.0.3.min.js"></script>
+    <script src="{{ STATIC_URL }}vendor/jquery/jquery.cookie.js"></script>
+    <script src="{{ STATIC_URL }}vendor/underscore/underscore-min.js"></script>
+    <script src="{{ STATIC_URL }}js/global.js"></script>
+    <script src="{{ STATIC_URL }}js/karma.js"></script>
+
+    {% block additional_js %}
+    {% endblock %}
+</head>
+<body>
+
+<div id="main-wrapper">
+{% block header %}
+    {% if not user.is_authenticated %}
+    <div class="super-banner">
+        We are building a brand new Devcharm, with even more Python! <a href="/login/github"><i class="small-icon icon-github"></i> Stay updated</a>
+    </div>
+    {% endif %}
+
+    <section class="header-main">
+        <div class="wrapper wrapper--collapse">
+            <ul class="nav left can-grow">
+                <li class="show-on-phone"><a class="js-nav-mobile-trigger" href="#"><i class="tiny-icon icon-menu"></i></a></li>
+{#                <li><a class="logo" href="{% url 'index' %}">Devcharm</a></li>#}
+{#                <li class="hide-on-phone"><a class="navigation{% if current == 'index' %} active{% endif %}" href="{% url 'index' %}">Index</a></li>#}
+{#                <li class="hide-on-phone"><a class="navigation{% if current == 'manifesto' %} active{% endif %}" href="{% url 'manifesto' %}">Manifesto</a></li>#}
+{#                <li class="hide-on-phone"><a class="navigation{% if current == 'guidelines' %} active{% endif %}" href="{% url 'docs' slug='guidelines' %}">Guidelines</a></li>#}
+            </ul>
+            <ul class="nav right can-grow">
+{#              {% block header_actions %}#}
+{#                {% if user.is_authenticated %}#}
+{#                {% if user.is_staff %}#}
+{#                  <li><a class="navigation" href="/admin">Admin</a></li>#}
+{#                {% endif %}#}
+{#                  <li><a class="navigation{% if current == 'home' and mine %} active{% endif %}" href="{% if user.pageauthor %}{% url 'profile-by-username' username=user.username %}{% endif %}">My Posts</a></li>#}
+{#                  <li><a class="action" href="{% url 'logout' %}">Logout</a></li>#}
+{#                {% else %}#}
+{#                  <li><a class="action-main{% if current == 'login' %}active{% endif %}" href="{% url 'login' %}">Login</a></li>#}
+{#                  <li><a class="action{% if current == 'signup' %}active{% endif %}" href="{% url 'signup' %}">Signup</a></li>#}
+{#                {% endif %}#}
+{#              {% endblock %}#}
+            </ul>
+            <ul class="nav nav-mobile show-on-phone js-nav-mobile">
+{#                <li><a class="navigation{% if current == 'index' %} active{% endif %}" href="{% url 'index' %}">Index</a></li>#}
+{#                <li><a class="navigation{% if current == 'manifesto' %} active{% endif %}" href="{% url 'manifesto' %}">Manifesto</a></li>#}
+{#                <li><a class="navigation{% if current == 'guidelines' %} active{% endif %}" href="{% url 'docs' slug='guidelines' %}">Guidelines</a>#}
+            </ul>
+        </div>
+    </section><!-- / .header-main -->
+{% endblock %}
+
+
+{% block main %}
+{% endblock %}
+</div>
+
+{% block footer %}
+    <section class="footer-main">
+        <div class="wrapper">
+            <div class="toolbar">
+                <ul class="nav left">
+                    <li>
+                        <span class="credits">
+                            <strong class="logo">Devcharm</strong> made in Berlin by
+                            <a href="http://urli.st/" target="_blank">Urlist</a>
+                            &mdash; {% now "Y" %}
+                        </span>
+                    </li>
+                </ul>
+                <ul class="nav left menu">
+{#                    <li><a href="{% url 'manifesto' %}">Manifesto</a></li>#}
+{#                    <li><a href="{% url 'docs' slug='guidelines' %}">Guidelines</a></li>#}
+                    <li><a href="//twitter.com/_devcharm" target="_blank">Twitter</a></li>
+                </ul>
+                <ul class="nav right">
+                    <li><a href="mailto:hello@devcharm.com">hello@devcharm.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </section><!-- / .content-footer -->
+{% endblock %}
+
+</body>
+</html>

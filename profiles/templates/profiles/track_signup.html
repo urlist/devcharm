@@ -1,0 +1,23 @@
+{% extends '_main.html' %}
+{% load humanize %}
+
+{% block tracker_analytics %}{% endblock %}
+{% block tracker_tagmanager %}{% endblock %}
+
+{% block additional_meta %}
+<meta http-equiv="refresh" content="0; {{ redirect_url }}?signup_success">
+{% endblock %}
+
+{% block content %}
+<div class="banner-top">
+    <div class="row">
+        <div class="unit">
+            <h1>You will be redirected in a moment</h1>
+            <p><br></p>
+            <a href="{{ redirect_url }}?signup_success" class="inline-button btn-green">Click here if redirect is not working</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block footer %}{% endblock %}

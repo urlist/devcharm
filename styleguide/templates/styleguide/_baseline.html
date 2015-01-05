@@ -1,0 +1,22 @@
+{% load staticfiles %}
+{% load compressed %}
+
+<!DOCTYPE html>
+<html lang="en" class="styleguide">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Devcharm StyleGuide</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% compressed_css "main" %}
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+{% block body %}{% endblock %}
+</body>
+</html>
+

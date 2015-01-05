@@ -1,0 +1,89 @@
+{% extends '_main.html' %}
+{% block css_namespace %}styleguide_widgets{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="unit">
+        <h1>Color Palette</h1>
+        <p></p>
+    </div>
+    <div class="unit nested">
+        <div class="row split3">
+            <div class="unit color-block">$color_black = #373737</div>
+            <div class="unit color-block">$color_blue = #0F5D8F</div>
+            <div class="unit color-block">$color_blue_light = #0F5D8F</div>
+            <div class="unit color-block">$color_blue_xlight = #0F5D8F</div>
+            <div class="unit color-block">$color_green = #3BC395</div>
+            <div class="unit color-block">$color_grey_50 = lighten($color_black, 50%)</div>
+            <div class="unit color-block">$color_grey_70 = lighten($color_black, 70%)</div>
+            <div class="unit color-block">$color_grey_90 = lighten($color_black, 90%)</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="unit">
+        <h1>Buttons</h1>
+        <p></p>
+    </div>
+
+    <div>
+        <h2>.button</h2>
+    </div>
+
+    <div class="unit">
+        <a href="" class="button">write a page</a>
+        <a href="" class="button">write a page</a>
+        <a href="" class="button btn-blue">see diff</a>
+        <a href="" class="button btn-green">read the manifesto</a>
+        <a href="" class="btn-small">load more</a>
+    </div>
+
+    <div>
+        <h2>.button btn-small</h2>
+    </div>
+
+    <div class="unit">
+        <a href="" class="button btn-small">read the manifesto</a>
+        <a href="" class="button btn-small">write a page</a>
+    </div>
+
+    <div>
+        <h2>.inline-button</h2>
+    </div>
+
+    <div class="unit">
+        <a href="" class="inline-button">read something</a>
+        <a href="" class="inline-button btn-outline">read something</a>
+        <a href="" class="inline-button btn-green">load something</a>
+        <a href="" class="inline-button btn-blue">load something</a>
+    </div>
+
+    <div>
+        <h2>button</h2>
+    </div>
+
+    <div class="unit">
+        <button>load something</button>
+        <button>write something</button>
+    </div>
+
+    <div class="row">
+        <div class="unit">
+            <h1>Basic Typography</h1>
+        </div>
+        <div class="unit">
+            <h1>Main Heading</h1>
+            <h2>Secondary Heading, or punchline</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quam, quaerat, vel delectus <a href="">assumenda esse beatae</a> quod ab recusandae nostrum repudiandae hic. Corrupti, odio, unde consequatur tempore earum ipsa numquam!</p>
+        </div>
+    </div>
+
+    <div>
+        <h2>Article widgets</h2>
+    </div>
+
+</div>
+
+{% endblock content %}

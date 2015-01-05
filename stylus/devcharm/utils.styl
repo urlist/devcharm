@@ -1,0 +1,58 @@
+// Utility classes
+
+// Font stacks
+$type_serif = 'Bitter', Georgia, serif
+$type_sans = 'Open Sans', Helvetica, Arial, sans-serif
+$type_mono = 'Inconsolata', Andale Mono, Courier New, monospace
+
+// Transitions
+$transition_quick = all 0.2s ease
+
+// Type sizes
+$type_normal = 0.85em
+
+
+// Mixins
+
+// Mixin for styling tags in post's header/footer
+tags-style()
+    border 0.4em 0.8em
+    padding 0.2em 0.6em
+    border-radius 2px
+
+    background-color $color_grey_95
+
+    font-size 0.85em
+    font-weight 600
+    text-transform uppercase
+
+    transition $transition_quick
+
+    &:hover
+        border 0
+        padding 0.4em 0.8em
+        background-color $color_blue_xlight
+        color white
+
+// Mixin for styling article edit links
+edit-article-style()
+    color $color_grey_50
+
+    font-size 0.75em
+    font-weight 600
+    text-transform uppercase
+
+    a
+        color $color_wiki
+        transition $transition_quick
+
+        &:hover
+            border-bottom 1px solid @color
+
+// Vendor prefixes for transform
+transform()
+    -webkit-transform arguments
+    -moz-transform arguments
+    -ms-transform arguments
+    -o-transform arguments
+    transform arguments

@@ -1,0 +1,31 @@
+input-style($color_border=$color_grey_70, $color=$color_grey_25, $color_bg=$color_grey_50, $color_border_focus=$color_grey_50)
+    width 100%
+    margin-bottom 0.5em
+    padding 20px 28px
+    border 1px solid $
+    border-radius 3px
+
+    background $color_border
+    box-shadow 2px 2px 3px -2px rgba($color_shadow, 0.2) inset
+    color $color_grey_90
+
+    transition $transition_quick
+
+    &:focus
+        outline none
+        border-color $color_border_focus
+
+input
+    input-style()
+
+.inp-small
+    @extend .input
+    padding 12px 22px
+
+.inp-xsmall
+    @extend .input
+    padding 6px 12px
+
+.inp-dark
+    @extend .input
+    input-style($color_grey_25, $color_grey_90, $color_grey_8, $color_grey_35)
